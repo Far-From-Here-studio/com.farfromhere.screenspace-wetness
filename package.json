@@ -1,6 +1,6 @@
 {
   "name": "com.farfromhere.screenspace-wetness",
-  "displayName": "FFH Scree Space Wetness",
+  "displayName": "FFH Screen Space Wetness",
   "description": "Screen space Wetness and rain for Unity HDRP using CustomPass and Custom RenderTexture",
   "version": "0.0.1",
   "unity": "2022.0",
