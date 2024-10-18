@@ -88,7 +88,7 @@ Material:
     - _UpMaskFeatherSmoothness: 1
     - _VFXDropsTiling: 1.21
     - _VFXNormalForce: 0.59
-    - _WaterSmoothness: 0.642
+    - _WaterSmoothness: 1
     - _Zpos: 2
     m_Colors:
     - _DistanceViewDroplet: {r: 0, g: 0.035, b: 0, a: 0}
