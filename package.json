@@ -1,0 +1,12 @@
+{
+  "name": "com.farfromhere.screenspace-wetness",
+  "displayName": "FFH Scree Space Wetness",
+  "description": "Screen space Wetness and rain for Unity HDRP using CustomPass and Custom RenderTexture",
+  "version": "0.0.1",
+  "unity": "2022.0",
+  "relatedPackages": {},
+  "repository": {
+    "url": "https://github.com/Far-From-Here-studio/com.farfromhere.screenspace-wetness.git",
+    "type": "git"
+  }
+}
