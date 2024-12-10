@@ -9,9 +9,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7687538453584512071}
+  - component: {fileID: 503225941030485934}
   - component: {fileID: 9125808801899670840}
   - component: {fileID: 2530689297863689498}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: VFXCamera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -34,6 +35,44 @@ Transform:
   - {fileID: 5675317539620024172}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+--- !u!114 &503225941030485934
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4998724140117973647}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26d6499a6bd256e47b859377446493a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IsGlobal: 1
+  fadeRadius: 0
+  priority: 0
+  customPasses:
+  - rid: 7875933048008343552
+  injectionPoint: 0
+  m_TargetCamera: {fileID: 0}
+  useTargetCamera: 0
+  references:
+    version: 2
+    RefIds:
+    - rid: 7875933048008343552
+      type: {class: VFXElementsRenderer, ns: FFH.HDRP.Rendering, asm: FFH.HDRP.Rendering}
+      data:
+        m_Name: Custom Pass
+        enabled: 1
+        targetColorBuffer: 2
+        targetDepthBuffer: 2
+        clearFlags: 0
+        passFoldout: 0
+        m_Version: 0
+        DefaultLayerMask:
+          serializedVersion: 2
+          m_Bits: 67108864
+        VFXBufferRT: {fileID: 8400000, guid: f399c11b51415f04281b991c85aa49ff, type: 2}
+        VFXOrthoCamera: {fileID: 9125808801899670840}
 --- !u!20 &9125808801899670840
 Camera:
   m_ObjectHideFlags: 0
@@ -65,15 +104,15 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.3
+  near clip plane: 0.15
   far clip plane: 6
   field of view: 60
   orthographic: 1
-  orthographic size: 1.8547984
+  orthographic size: 3
   m_Depth: -100
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 67108993
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 8400000, guid: f399c11b51415f04281b991c85aa49ff, type: 2}
   m_TargetDisplay: 0
@@ -246,19 +285,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6426161729511247067, guid: c2c5f5b1563cd454a832f6d874a4f868, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6426161729511247067, guid: c2c5f5b1563cd454a832f6d874a4f868, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6426161729511247067, guid: c2c5f5b1563cd454a832f6d874a4f868, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6426161729511247067, guid: c2c5f5b1563cd454a832f6d874a4f868, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6426161729511247067, guid: c2c5f5b1563cd454a832f6d874a4f868, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -278,7 +317,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6811140283069087167, guid: c2c5f5b1563cd454a832f6d874a4f868, type: 3}
       propertyPath: m_Layer
-      value: 7
+      value: 26
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

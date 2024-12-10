@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Shader Graphs_ModifyNormalRoughness
+  m_Name: ModifyNormalRoughness
   m_Shader: {fileID: -6465566751694194690, guid: 703e2e2d0edf5c346b85c77f5a09e966, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -61,38 +61,38 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Base: -0.05
+    - _Base: -0.14
     - _DistanceView: 0.93
     - _Drop2Strenght: 0
     - _DropletStrenght: 20
-    - _Droplet_Tiling: 0.47
-    - _FadeEnd: 50
-    - _FadeStart: 25
+    - _Droplet_Tiling: 0.65
+    - _FadeEnd: 4
+    - _FadeStart: 0
     - _Float: 1
     - _Float_1: 0.75
     - _Force: 5
     - _Fullscreen_DepthWrite: 0
-    - _MaxMipBias: 1
+    - _MaxMipBias: 4
     - _NormalStrength: 1.74
-    - _Normal_Strength: 0.04
-    - _PerceptualRoughnessIntensity: 1.1
-    - _PerturbationTiling: 12.11
-    - _RainGlideStrenght: 0.21
+    - _Normal_Strength: 0.025
+    - _PerceptualRoughnessIntensity: 1.5
+    - _PerturbationTiling: 14
+    - _RainGlideStrenght: 0.05
     - _RainGlideTiling: 1
     - _Rot: 0.46
-    - _ScrollSpeed: -0.21
-    - _Tiling: 0.6
+    - _ScrollSpeed: -0.15
+    - _Tiling: 1
     - _UpMaskBlend: -0.68
     - _UpMaskBlendSmoothness: 1
     - _UpMaskFeather: 0.64
     - _UpMaskFeatherSmoothness: 1
-    - _VFXDropsTiling: 1.21
-    - _VFXNormalForce: 0.59
+    - _VFXDropsTiling: 1
+    - _VFXNormalForce: 0.33
     - _WaterSmoothness: 1
     - _Zpos: 2
     m_Colors:
     - _DistanceViewDroplet: {r: 0, g: 0.035, b: 0, a: 0}
-    - _PertubationMinMax: {r: 0.95, g: 1, b: 0, a: 0}
-    - _RemapDropRoughness: {r: 0, g: 1, b: 4, a: 0}
+    - _PertubationMinMax: {r: 0.98, g: 1.02, b: 0, a: 0}
+    - _RemapDropRoughness: {r: 0, g: 1, b: 3, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1

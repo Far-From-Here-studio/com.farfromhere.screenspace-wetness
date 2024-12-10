@@ -6360,7 +6360,7 @@
     "m_Title": "Smoothness Mask Feather (Inverted Up)",
     "m_Position": {
         "x": 2641.0,
-        "y": -430.000244140625
+        "y": -430.0
     }
 }
 
@@ -10743,7 +10743,7 @@
     "m_Title": "Droplet Custom Render Texture",
     "m_Position": {
         "x": 445.0,
-        "y": -3599.000244140625
+        "y": -3599.0
     }
 }
 
@@ -10777,8 +10777,8 @@
     "m_ObjectId": "227fb269671d4a318fada199db60a62c",
     "m_Title": "Double  Planar Normal Map",
     "m_Position": {
-        "x": -2998.000244140625,
-        "y": -1267.0001220703125
+        "x": -2998.0,
+        "y": -1267.0
     }
 }
 
@@ -19949,8 +19949,8 @@
     "m_ObjectId": "66192402195c4cc5920566527dc2f05f",
     "m_Title": "Rain Custom RenderTexture",
     "m_Position": {
-        "x": -1568.9998779296875,
-        "y": -2196.999755859375
+        "x": -1569.0,
+        "y": -2197.0
     }
 }
 
@@ -21190,7 +21190,7 @@
     "m_Title": "Normal & Roughness modification mask TEST",
     "m_Position": {
         "x": 773.0,
-        "y": 649.999755859375
+        "y": 650.0
     }
 }
 
@@ -26734,7 +26734,7 @@
     "m_ObjectId": "99c9a6a220894b4787fc061a7217d3e3",
     "m_Title": "Pertube World Position",
     "m_Position": {
-        "x": -4391.00048828125,
+        "x": -4391.0,
         "y": -2371.0
     }
 }
@@ -28005,8 +28005,8 @@
     "m_ObjectId": "a42b5eb515954b2ebef65333d8efaafd",
     "m_Title": "VFX CustomBuffer",
     "m_Position": {
-        "x": -1568.0001220703125,
-        "y": -2821.000244140625
+        "x": -1568.0,
+        "y": -2821.0
     }
 }
 
@@ -28983,7 +28983,7 @@
     "m_Title": "Bugged Trick to rotate tangent space normal upwards",
     "m_Position": {
         "x": 1927.0,
-        "y": 760.999755859375
+        "y": 761.0
     }
 }
 
@@ -35561,7 +35561,7 @@
     "m_Title": "Smoothness Buffer Modification mask",
     "m_Position": {
         "x": 5521.0,
-        "y": -873.0001220703125
+        "y": -873.0
     }
 }
 
@@ -37934,8 +37934,8 @@
     "m_ObjectId": "eae1b9f6401f402e81913c69308779cb",
     "m_Title": "Quick way to generate normal from grayscale",
     "m_Position": {
-        "x": -437.99993896484377,
-        "y": -2870.000244140625
+        "x": -438.0,
+        "y": -2870.0
     }
 }
 
@@ -39468,7 +39468,7 @@
     "m_ObjectId": "f566b499d4774c8291afc09d39486282",
     "m_Title": "VFX DROPS SCROLL SPEED",
     "m_Position": {
-        "x": -2588.999755859375,
+        "x": -2589.0,
         "y": -3562.0
     }
 }
@@ -39642,8 +39642,8 @@
     "m_ObjectId": "f6f53e1543784a05b7b57f9c1e4ac597",
     "m_Title": "Depth",
     "m_Position": {
-        "x": -1333.9998779296875,
-        "y": -3355.000244140625
+        "x": -1334.0,
+        "y": -3355.0
     }
 }
 

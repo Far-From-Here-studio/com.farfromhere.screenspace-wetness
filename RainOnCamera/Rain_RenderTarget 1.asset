@@ -6,7 +6,7 @@ CustomRenderTexture:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Rain_RenderTarget
+  m_Name: Rain_RenderTarget 1
   m_ImageContentsHash:
     serializedVersion: 2
     Hash: 00000000000000000000000000000000
@@ -37,7 +37,7 @@ CustomRenderTexture:
   m_Dimension: 2
   m_VolumeDepth: 1
   m_ShadowSamplingMode: 2
-  m_Material: {fileID: 2100000, guid: 0a21689dc4b4b0848ac7a77509a4e72d, type: 2}
+  m_Material: {fileID: 2100000, guid: f3a4ea657c0ecf642a90685132cc17f1, type: 2}
   m_InitSource: 0
   m_InitMaterial: {fileID: 0}
   m_InitColor: {r: 0, g: 0, b: 0, a: 1}
@@ -47,7 +47,7 @@ CustomRenderTexture:
   m_UpdateZoneSpace: 0
   m_CurrentUpdateZoneSpace: 0
   m_UpdateZones: []
-  m_UpdatePeriod: 0.15
+  m_UpdatePeriod: 0
   m_ShaderPass: 0
   m_CubemapFaceMask: 4294967295
   m_DoubleBuffered: 1

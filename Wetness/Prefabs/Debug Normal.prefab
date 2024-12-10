@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &7028665389892156950
+--- !u!1 &4971443158081068180
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,22 +8,22 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1399600938907062513}
-  - component: {fileID: 4704395060047192656}
+  - component: {fileID: 3898051826812367475}
+  - component: {fileID: 7223095100679274706}
   m_Layer: 0
-  m_Name: Debug Wetness
+  m_Name: Debug Normal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1399600938907062513
+  m_IsActive: 0
+--- !u!4 &3898051826812367475
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7028665389892156950}
+  m_GameObject: {fileID: 4971443158081068180}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
@@ -32,13 +32,13 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4704395060047192656
+--- !u!114 &7223095100679274706
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7028665389892156950}
+  m_GameObject: {fileID: 4971443158081068180}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 26d6499a6bd256e47b859377446493a1, type: 3}
@@ -65,7 +65,7 @@ MonoBehaviour:
         clearFlags: -1
         passFoldout: 0
         m_Version: 0
-        fullscreenPassMaterial: {fileID: -876546973899608171, guid: a9286e9871473f7409e0c75e0317f2fe, type: 3}
+        fullscreenPassMaterial: {fileID: -876546973899608171, guid: bc8a140d318f2a34ca847b132d04ef19, type: 3}
         materialPassIndex: 0
         materialPassName: Custom Pass 0
         fetchColorBuffer: 0

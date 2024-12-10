@@ -7,9 +7,7 @@ using UnityEngine.Experimental.Rendering;
 
 namespace FFH.HDRP.Rendering
 {
-
 #if UNITY_EDITOR
-
     using UnityEditor.Rendering.HighDefinition;
 
     [CustomPassDrawer(typeof(ScreenSpaceWetness))]
@@ -17,10 +15,9 @@ namespace FFH.HDRP.Rendering
     {
         protected override PassUIFlag commonPassUIFlags => PassUIFlag.Name;
     }
-
 #endif
 
-    class ScreenSpaceWetness : CustomPass
+    public class ScreenSpaceWetness : CustomPass
     {
         public Material wetnessMaterial;
         public CustomRenderTexture GlidingDroplets;
@@ -29,8 +26,11 @@ namespace FFH.HDRP.Rendering
 
         protected override void Setup(ScriptableRenderContext renderContext, CommandBuffer cmd)
         {
-            tmpNormalBuffer = RTHandles.Alloc(Vector2.one, TextureXR.slices, dimension: TextureXR.dimension, colorFormat: GraphicsFormat.R16G16B16A16_SFloat, useDynamicScale: true, name: "TMP Normal Buffer");
-
+            tmpNormalBuffer = RTHandles.Alloc(Vector2.one, 
+                TextureXR.slices, dimension: TextureXR.dimension,
+                colorFormat: GraphicsFormat.R16G16B16A16_SFloat,
+                useDynamicScale: true,
+                name: "TMP Normal Buffer");
         }
 
         public override IEnumerable<Material> RegisterMaterialForInspector()
