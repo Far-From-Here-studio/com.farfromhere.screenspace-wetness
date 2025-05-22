@@ -20,17 +20,24 @@ namespace FFH.HDRP.Rendering
     public class ScreenSpaceWetness : CustomPass
     {
         public Material wetnessMaterial;
-        public CustomRenderTexture GlidingDroplets;
-        RTHandle tmpNormalBuffer;
+        RTHandle tmpBuffer;
         MaterialPropertyBlock props;
+        public RenderTexture RT;
+        static class ShaderID
+        {
+            public static readonly int _WetnessBuffer = Shader.PropertyToID("_WetnessBuffer");
+        }
 
         protected override void Setup(ScriptableRenderContext renderContext, CommandBuffer cmd)
         {
-            tmpNormalBuffer = RTHandles.Alloc(Vector2.one, 
+
+            tmpBuffer = RTHandles.Alloc(Vector2.one,
                 TextureXR.slices, dimension: TextureXR.dimension,
-                colorFormat: GraphicsFormat.R16G16B16A16_SFloat,
+                colorFormat: GraphicsFormat.R8G8B8A8_UNorm,
+                depthBufferBits: DepthBits.None,
                 useDynamicScale: true,
-                name: "TMP Normal Buffer");
+                name: "_WetnessBuffer");
+
         }
 
         public override IEnumerable<Material> RegisterMaterialForInspector()
@@ -41,30 +48,27 @@ namespace FFH.HDRP.Rendering
 
         protected override void Execute(CustomPassContext ctx)
         {
-            if (ctx.hdCamera.camera.cameraType == CameraType.SceneView)
-            {
-                ctx.cmd.SetRenderTarget(ctx.cameraColorBuffer, ctx.cameraDepthBuffer);
-                ctx.cmd.SetViewport(ctx.hdCamera.camera.pixelRect);
-            }
-
+            /*
             if (injectionPoint != CustomPassInjectionPoint.AfterOpaqueDepthAndNormal)
             {
                 Debug.LogError("Custom Pass ScreenSpaceWetness needs to be used at the injection point AfterOpaqueDepthAndNormal.");
                 return;
             }
+           */
 
             if (wetnessMaterial == null)
                 return;
 
             props = new MaterialPropertyBlock();
-            CoreUtils.SetRenderTarget(ctx.cmd, tmpNormalBuffer, ctx.cameraDepthBuffer);
+            CoreUtils.SetRenderTarget(ctx.cmd, tmpBuffer);
             CoreUtils.DrawFullScreen(ctx.cmd, wetnessMaterial, shaderPassId: 0, properties: props);
-            CustomPassUtils.Copy(ctx, tmpNormalBuffer, ctx.cameraNormalBuffer);
+            ctx.cmd.SetGlobalTexture(ShaderID._WetnessBuffer, tmpBuffer.rt);
+            RT = tmpBuffer.rt;
         }
 
         protected override void Cleanup()
         {
-            tmpNormalBuffer.Release();
+            tmpBuffer.Release();
         }
     }
 }

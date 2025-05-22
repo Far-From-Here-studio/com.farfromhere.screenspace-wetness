@@ -24,7 +24,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _Droplets:
-        m_Texture: {fileID: 8600000, guid: 9c1cca59737f4534ea675a56e4b3fcbe, type: 2}
+        m_Texture: {fileID: 8600000, guid: 08fd064f5c21f2743b94e0d7eebae6dc, type: 2}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NormalMap:
@@ -36,7 +36,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _RainDropGliding:
-        m_Texture: {fileID: 8600000, guid: 02c1eb9b1ea4e8847a46ac799aafee34, type: 2}
+        m_Texture: {fileID: 8600000, guid: 8328c53f290aa234992c3d04c963689d, type: 2}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _RainDroplets:
@@ -44,7 +44,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _VFXBuffer:
-        m_Texture: {fileID: 8400000, guid: f399c11b51415f04281b991c85aa49ff, type: 2}
+        m_Texture: {fileID: 2800000, guid: a1812c886c647b84292e4dd2f7ffdbea, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
@@ -61,38 +61,38 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Base: -0.14
+    - _Base: 0.03
     - _DistanceView: 0.93
     - _Drop2Strenght: 0
     - _DropletStrenght: 20
-    - _Droplet_Tiling: 0.65
+    - _Droplet_Tiling: 0.49
     - _FadeEnd: 4
     - _FadeStart: 0
     - _Float: 1
     - _Float_1: 0.75
-    - _Force: 5
+    - _Force: 1.75
     - _Fullscreen_DepthWrite: 0
     - _MaxMipBias: 4
     - _NormalStrength: 1.74
-    - _Normal_Strength: 0.025
-    - _PerceptualRoughnessIntensity: 1.5
-    - _PerturbationTiling: 14
-    - _RainGlideStrenght: 0.05
-    - _RainGlideTiling: 1
+    - _Normal_Strength: 0.007
+    - _PerceptualRoughnessIntensity: 3.52
+    - _PerturbationTiling: 25
+    - _RainGlideStrenght: 0.07
+    - _RainGlideTiling: 0.85
     - _Rot: 0.46
-    - _ScrollSpeed: -0.15
+    - _ScrollSpeed: -0.02
     - _Tiling: 1
     - _UpMaskBlend: -0.68
-    - _UpMaskBlendSmoothness: 1
+    - _UpMaskBlendSmoothness: -0.56
     - _UpMaskFeather: 0.64
-    - _UpMaskFeatherSmoothness: 1
-    - _VFXDropsTiling: 1
-    - _VFXNormalForce: 0.33
+    - _UpMaskFeatherSmoothness: 0.99
+    - _VFXDropsTiling: 0.56
+    - _VFXNormalForce: 0.68
     - _WaterSmoothness: 1
     - _Zpos: 2
     m_Colors:
     - _DistanceViewDroplet: {r: 0, g: 0.035, b: 0, a: 0}
-    - _PertubationMinMax: {r: 0.98, g: 1.02, b: 0, a: 0}
-    - _RemapDropRoughness: {r: 0, g: 1, b: 3, a: 0}
+    - _PertubationMinMax: {r: 0.99, g: 1.01, b: 0, a: 0}
+    - _RemapDropRoughness: {r: 0, g: 1, b: 50, a: -0.62}
   m_BuildTextureStacks: []
   m_AllowLocking: 1

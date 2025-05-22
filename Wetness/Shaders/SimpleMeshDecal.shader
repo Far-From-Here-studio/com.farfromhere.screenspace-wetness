@@ -5,6 +5,8 @@ Shader "Custom/HDRP/SimpleMeshDecal"
         _MainTex ("Decal Texture", 2D) = "white" {}
         _Color ("Color", Color) = (1,1,1,1)
         [Toggle(USE_WORLD_SPACE)] _UseWorldSpace("Use World Space", Float) = 0
+        _ClipThreshold("Surface Clip Threshold", Range(0.0, 0.1)) = 0.01
+        _ProjectionScale("Projection Scale", Vector) = (1,1,1)
     }
 
     SubShader
@@ -20,10 +22,10 @@ Shader "Custom/HDRP/SimpleMeshDecal"
             Name "Forward"
             Tags { "LightMode" = "ForwardOnly" }
 
+            Cull Front
             ZWrite Off
-            ZTest Greater  // Only render on surfaces in front
-            Blend SrcAlpha OneMinusSrcAlpha
-            Cull Front    // Render back faces
+            ZTest Always
+            Blend SrcAlpha OneMinusSrcAlpha // Render back faces
 
             HLSLPROGRAM
             #pragma vertex vert
@@ -38,6 +40,7 @@ Shader "Custom/HDRP/SimpleMeshDecal"
                 float4 positionOS : POSITION;
                 float3 normalOS : NORMAL;
                 float2 uv : TEXCOORD0;
+
             };
 
             struct Varyings
@@ -45,16 +48,20 @@ Shader "Custom/HDRP/SimpleMeshDecal"
                 float4 positionCS : SV_POSITION;
                 float3 positionWS : TEXCOORD0;
                 float3 normalWS : TEXCOORD1;
-                float4 projUV : TEXCOORD2;
+                float3 projUV : TEXCOORD2;
                 float2 uv : TEXCOORD3;
+                float3 ray : TEXCOORD4;
             };
 
             TEXTURE2D(_MainTex);
             SAMPLER(sampler_MainTex);
+            //TEXTURE2D_X_FLOAT(_CameraDepthTexture);
 
             CBUFFER_START(UnityPerMaterial)
                 float4 _MainTex_ST;
                 float4 _Color;
+                float _ClipThreshold;
+                float3 _ProjectionScale;
             CBUFFER_END
 
             Varyings vert(Attributes input)
@@ -65,16 +72,54 @@ Shader "Custom/HDRP/SimpleMeshDecal"
                 output.positionWS = TransformObjectToWorld(input.positionOS.xyz);
                 output.positionCS = TransformWorldToHClip(output.positionWS);
                 output.normalWS = TransformObjectToWorldNormal(input.normalOS);
-                
+                output.ray = output.positionWS - _WorldSpaceCameraPos;
                 // Calculate projection UVs
-                output.projUV = output.positionCS;
+                output.projUV = GetAbsolutePositionWS(output.positionWS);
                 output.uv = input.uv;
                 
                 return output;
             }
 
+
             float4 frag(Varyings input) : SV_Target
             {
+                // Get the screen UV coordinates
+                float2 screenUV = input.positionCS.xy / _ScreenSize.xy;;
+                
+                float3 worldRay = normalize(input.ray);
+                worldRay /= dot(worldRay, -UNITY_MATRIX_V[2].xyz);
+
+                float2 posCS = (input.positionCS.x, - input.positionCS.y);
+                // Sample scene depth
+                float2 positionNDC = (posCS.xy / input.positionCS.w); // from -1 to 1
+
+
+                float rawSceneDepth = LOAD_TEXTURE2D_X(_CameraDepthTexture, input.positionCS.xy).r;
+                float linearSceneDepth = ComputeViewSpacePosition(positionNDC, rawSceneDepth, UNITY_MATRIX_I_P).z;
+
+                float depth = Linear01Depth(rawSceneDepth,_ZBufferParams.xyzw );
+
+                float3 worldPos = worldRay * linearSceneDepth; // * linearSceneDepth;
+                float3 localPos = TransformWorldToObject(worldPos).xyz;
+
+                float linearFragDepth = LinearEyeDepth(input.positionWS, UNITY_MATRIX_V);
+                float fragmentDepth = input.positionCS.w;
+                
+
+                clip(0.5 - abs(localPos));
+
+             
+                // Calculate depth difference
+                float depthDiff = abs( fragmentDepth - linearSceneDepth);
+
+                               
+                if (fragmentDepth - _ClipThreshold < linearSceneDepth )
+                 discard;
+
+                // Clip fragments that are too far from surfaces
+                clip( depthDiff - _ClipThreshold);
+                
+                /*
                 // Calculate UV coordinates based on position
                 float2 projUV = input.projUV.xy / input.projUV.w;
                 projUV = projUV * 0.5 + 0.5;
@@ -90,11 +135,26 @@ Shader "Custom/HDRP/SimpleMeshDecal"
                 
                 color *= _Color;
                 
-                // Fade out at edges of the projection
-                float edge = 1 - abs(input.projUV.z);
-                color.a *= smoothstep(0, 0.1, edge);
+                // Fade based on depth difference for smoother edges
+                float fade = 1 - (depthDiff / _ClipThreshold);
+                color.a *= saturate(fade);                
+                //return color;
+                */
                 
-                return color;
+                /*
+                float4x4 worldToObject = RevertCameraTranslationFromInverseMatrix(UNITY_MATRIX_I_M);
+                float3 localPos = mul((float3x3)worldToObject, input.projUV.rgb);
+                float3 uvw = localPos / _ProjectionScale;
+
+           
+                if (any(abs(uvw) > 0.5))
+                    discard;
+                         */
+                         
+            float2 screenPos = input.positionCS.xy;
+            float2 screenUVs = screenPos / _ScreenSize.xy;
+            return float4(screenUVs, 0, 1); // Red = X pos, Green = Y pos
+            
             }
             ENDHLSL
         }

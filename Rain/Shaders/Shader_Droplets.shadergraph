@@ -2153,7 +2153,7 @@
     "m_StageCapability": 3,
     "m_BareResource": false,
     "m_Texture": {
-        "m_SerializedTexture": "{\"texture\":{\"fileID\":8600000,\"guid\":\"9c1cca59737f4534ea675a56e4b3fcbe\",\"type\":2}}",
+        "m_SerializedTexture": "",
         "m_Guid": ""
     },
     "m_DefaultType": 0
@@ -3078,11 +3078,12 @@
     "hlslDeclarationOverride": 0,
     "m_Hidden": false,
     "m_Value": {
-        "m_SerializedTexture": "",
+        "m_SerializedTexture": "{\"texture\":{\"fileID\":8600000,\"guid\":\"08fd064f5c21f2743b94e0d7eebae6dc\",\"type\":2}}",
         "m_Guid": ""
     },
     "isMainTexture": false,
     "useTilingAndOffset": false,
+    "useTexelSize": true,
     "m_Modifiable": true,
     "m_DefaultType": 0
 }
@@ -3419,7 +3420,7 @@
     "m_ObjectId": "8210becddc3b499991488e9fa4293766",
     "m_Title": "Damping & Fading",
     "m_Position": {
-        "x": -810.9998779296875,
+        "x": -811.000244140625,
         "y": -1611.0
     }
 }
