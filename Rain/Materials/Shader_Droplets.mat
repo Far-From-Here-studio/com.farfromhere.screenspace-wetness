@@ -115,15 +115,15 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Drop_Size: 0.028
+    - _Drop_Size: 0.021
     - _Droplets_Intensity: 1.54
     - _Fade: 0.95
     - _Fade_End: 30
     - _Fade_Start: 10
-    - _Fade_Value: 0.9
+    - _Fade_Value: 0.9036
     - _Float: 0
     - _Normal_Intensity: 10
-    - _Rain_Amount: 0.001
+    - _Rain_Amount: 0.0139
     - _Texture_Resolution: 1024
     m_Colors:
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}

@@ -159,7 +159,7 @@ public class VFXDecalTest : CustomPass
     static ShaderTagId[] forwardShaderTags;
     static ShaderTagId[] depthShaderTags;
     static ShaderTagId[] SSDecalShaderTags;
-
+    static ShaderTagId[] SceneViewShaderTags;
     // Cache the shaderTagIds so we don't allocate a new array each frame
     ShaderTagId[] cachedShaderTagIDs;
 
@@ -196,10 +196,14 @@ public class VFXDecalTest : CustomPass
                 HDShaderPassNames.s_EmptyName,              // Add an empty slot for the override material
         };
 
-        SSDecalShaderTags =
-            new ShaderTagId[]
+        SSDecalShaderTags = new ShaderTagId[]
         {
                       new ShaderTagId ("WetnessDecal")      // Add an empty slot for the override material
+        };
+
+        SceneViewShaderTags = new ShaderTagId[]
+        {
+                      new ShaderTagId ("SceneViewForward")      // Add an empty slot for the override material
         };
     }
 
@@ -277,11 +281,34 @@ public class VFXDecalTest : CustomPass
             layerMask = layerMask,
         };
 
+        var sceneViewresult = new UnityEngine.Rendering.RendererUtils.RendererListDesc(SceneViewShaderTags, ctx.cullingResults, ctx.hdCamera.camera)
+        {
+            rendererConfiguration = renderConfig,
+            renderQueueRange = GetRenderQueueRange(renderQueueType),
+            sortingCriteria = sortingCriteria,
+            excludeObjectMotionVectors = false,
+            overrideShader = overrideMode == OverrideMaterialMode.Shader ? overrideShader : null,
+            overrideMaterial = overrideMode == OverrideMaterialMode.Material ? overrideMaterial : null,
+            overrideMaterialPassIndex = (overrideMaterial != null) ? overrideMaterial.FindPass(overrideMaterialPassName) : 0,
+            overrideShaderPassIndex = (overrideShader != null) ? overrideShaderMaterial.FindPass(overrideShaderPassName) : 0,
+            stateBlock = stateBlock,
+            layerMask = layerMask,
+        };
+
         UnityEngine.Object.DestroyImmediate(overrideShaderMaterial);
         var renderCtx = ctx.renderContext;
         var rendererList = renderCtx.CreateRendererList(result);
+
+        var sceneViewrendererList = renderCtx.CreateRendererList(sceneViewresult);
+
         bool opaque = renderQueueType == RenderQueueType.AllOpaque || renderQueueType == RenderQueueType.OpaqueAlphaTest || renderQueueType == RenderQueueType.OpaqueNoAlphaTest;
         RenderForwardRendererList(ctx.hdCamera.frameSettings, rendererList, opaque, ctx.renderContext, ctx.cmd);
+
+        if (ctx.hdCamera.camera.cameraType == CameraType.SceneView)
+        {
+            CoreUtils.SetRenderTarget(ctx.cmd, ctx.cameraColorBuffer);
+            RenderForwardRendererList(ctx.hdCamera.frameSettings, sceneViewrendererList, opaque, ctx.renderContext, ctx.cmd);
+        }
     }
 
     protected override void Cleanup()
