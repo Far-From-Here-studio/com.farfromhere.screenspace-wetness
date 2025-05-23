@@ -5,7 +5,7 @@ Shader "Custom/HDRP/SimpleMeshDecal"
         _MainTex ("Decal Texture", 2D) = "white" {}
         _Color ("Color", Color) = (1,1,1,1)
         [Toggle(USE_WORLD_SPACE)] _UseWorldSpace("Use World Space", Float) = 0
-        _ClipThreshold("Surface Clip Threshold", Range(0.0, 0.1)) = 0.01
+        _ClipThreshold("Surface Clip Threshold", Range(-0.1, 0.1)) = -0.01
         _ProjectionScale("Projection Scale", Vector) = (1,1,1)
     }
 
@@ -19,8 +19,8 @@ Shader "Custom/HDRP/SimpleMeshDecal"
 
         Pass
         {
-            Name "Forward"
-            Tags { "LightMode" = "ForwardOnly" }
+            Name "WetnessDecal"
+            Tags { "LightMode" = "WetnessDecal" }
 
             Cull Front
             ZWrite Off
@@ -41,16 +41,18 @@ Shader "Custom/HDRP/SimpleMeshDecal"
                 float3 normalOS : NORMAL;
                 float2 uv : TEXCOORD0;
 
+
             };
 
             struct Varyings
             {
                 float4 positionCS : SV_POSITION;
                 float3 positionWS : TEXCOORD0;
-                float3 normalWS : TEXCOORD1;
+                float depth : TEXCOORD1;
                 float3 projUV : TEXCOORD2;
                 float2 uv : TEXCOORD3;
                 float3 ray : TEXCOORD4;
+
             };
 
             TEXTURE2D(_MainTex);
@@ -71,10 +73,11 @@ Shader "Custom/HDRP/SimpleMeshDecal"
                 // Transform positions
                 output.positionWS = TransformObjectToWorld(input.positionOS.xyz);
                 output.positionCS = TransformWorldToHClip(output.positionWS);
-                output.normalWS = TransformObjectToWorldNormal(input.normalOS);
-                output.ray = output.positionWS - _WorldSpaceCameraPos;
+                //output.normalWS = TransformObjectToWorldNormal(input.normalOS);
+                output.ray = GetAbsolutePositionWS(output.positionWS) - _WorldSpaceCameraPos;
                 // Calculate projection UVs
                 output.projUV = GetAbsolutePositionWS(output.positionWS);
+                output.depth = output.positionCS.w;
                 output.uv = input.uv;
                 
                 return output;
@@ -85,55 +88,54 @@ Shader "Custom/HDRP/SimpleMeshDecal"
             {
                 // Get the screen UV coordinates
                 float2 screenUV = input.positionCS.xy / _ScreenSize.xy;;
+                float2 posCS = (input.positionCS.x, - input.positionCS.y);
+                float2 positionNDC = (posCS.xy / input.positionCS.w); // from -1 to 1
                 
                 float3 worldRay = normalize(input.ray);
                 worldRay /= dot(worldRay, -UNITY_MATRIX_V[2].xyz);
 
-                float2 posCS = (input.positionCS.x, - input.positionCS.y);
-                // Sample scene depth
-                float2 positionNDC = (posCS.xy / input.positionCS.w); // from -1 to 1
-
-
+                
                 float rawSceneDepth = LOAD_TEXTURE2D_X(_CameraDepthTexture, input.positionCS.xy).r;
                 float linearSceneDepth = ComputeViewSpacePosition(positionNDC, rawSceneDepth, UNITY_MATRIX_I_P).z;
+                // Sample scene depth
+                //float linearFragDepth = LinearEyeDepth(input.positionWS, UNITY_MATRIX_I_P);
+                //float fragmentDepth = input.positionCS.w;
+                //float depth = Linear01Depth(rawSceneDepth,_ZBufferParams.xyzw );
 
-                float depth = Linear01Depth(rawSceneDepth,_ZBufferParams.xyzw );
-
-                float3 worldPos = worldRay * linearSceneDepth; // * linearSceneDepth;
+                float3 worldPos =  worldRay * linearSceneDepth; // * linearSceneDepth;
                 float3 localPos = TransformWorldToObject(worldPos).xyz;
 
-                float linearFragDepth = LinearEyeDepth(input.positionWS, UNITY_MATRIX_V);
-                float fragmentDepth = input.positionCS.w;
+                clip(0.5 + _ClipThreshold - abs(localPos));
                 
-
-                clip(0.5 - abs(localPos));
-
-             
-                // Calculate depth difference
-                float depthDiff = abs( fragmentDepth - linearSceneDepth);
-
-                               
-                if (fragmentDepth - _ClipThreshold < linearSceneDepth )
-                 discard;
-
-                // Clip fragments that are too far from surfaces
-                clip( depthDiff - _ClipThreshold);
-                
-                /*
-                // Calculate UV coordinates based on position
-                float2 projUV = input.projUV.xy / input.projUV.w;
-                projUV = projUV * 0.5 + 0.5;
-                
-                // Sample texture using either world space or mesh UVs
+                   // Sample texture using either world space or mesh UVs
                 float4 color;
                 #if USE_WORLD_SPACE
                     float2 worldUV = input.positionWS.xz * _MainTex_ST.xy + _MainTex_ST.zw;
                     color = SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, worldUV);
                 #else
-                    color = SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, input.uv);
+                    color = SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, localPos.xz + 0.5);
                 #endif
                 
-                color *= _Color;
+                color *= _Color; 
+
+                return color.rgba;
+
+                // Calculate depth difference
+                //float depthDiff = abs( input.depth - linearSceneDepth );
+                //clip(depthDiff + _ClipThreshold);
+                               
+                //if (input.depth + _ClipThreshold < linearSceneDepth )
+                // discard;
+               
+                // Clip fragments that are too far from surfaces
+
+                
+               /*
+                // Calculate UV coordinates based on position
+                float2 projUV = input.projUV.xy / input.projUV.w;
+                projUV = projUV * 0.5 + 0.5;
+                
+          
                 
                 // Fade based on depth difference for smoother edges
                 float fade = 1 - (depthDiff / _ClipThreshold);
@@ -151,9 +153,7 @@ Shader "Custom/HDRP/SimpleMeshDecal"
                     discard;
                          */
                          
-            float2 screenPos = input.positionCS.xy;
-            float2 screenUVs = screenPos / _ScreenSize.xy;
-            return float4(screenUVs, 0, 1); // Red = X pos, Green = Y pos
+
             
             }
             ENDHLSL
