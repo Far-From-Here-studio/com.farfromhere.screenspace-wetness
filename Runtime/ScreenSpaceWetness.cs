@@ -23,6 +23,7 @@ namespace FFH.HDRP.Rendering
         RTHandle tmpBuffer;
         MaterialPropertyBlock props;
         public RenderTexture RT;
+        RTHandle tmpNormalBuffer;
         static class ShaderID
         {
             public static readonly int _WetnessBuffer = Shader.PropertyToID("_WetnessBuffer");
@@ -37,6 +38,14 @@ namespace FFH.HDRP.Rendering
                 depthBufferBits: DepthBits.None,
                 useDynamicScale: true,
                 name: "_WetnessBuffer");
+
+            tmpNormalBuffer = RTHandles.Alloc(Vector2.one,
+
+               TextureXR.slices, dimension: TextureXR.dimension,
+               colorFormat: GraphicsFormat.R16G16B16A16_SFloat,
+
+               useDynamicScale: true,
+               name: "TMP Normal Buffer");
 
         }
 
@@ -56,14 +65,25 @@ namespace FFH.HDRP.Rendering
             }
            */
 
+            if (ctx.hdCamera.camera.cameraType == CameraType.SceneView)
+            {
+                ctx.cmd.SetRenderTarget(ctx.cameraColorBuffer, ctx.cameraDepthBuffer);
+                ctx.cmd.SetViewport(ctx.hdCamera.camera.pixelRect);
+            }
+
             if (wetnessMaterial == null)
                 return;
 
+            //props = new MaterialPropertyBlock();
+            //CoreUtils.SetRenderTarget(ctx.cmd, tmpBuffer);
             props = new MaterialPropertyBlock();
-            CoreUtils.SetRenderTarget(ctx.cmd, tmpBuffer);
+            CoreUtils.SetRenderTarget(ctx.cmd, tmpNormalBuffer, ctx.cameraDepthBuffer);
             CoreUtils.DrawFullScreen(ctx.cmd, wetnessMaterial, shaderPassId: 0, properties: props);
-            ctx.cmd.SetGlobalTexture(ShaderID._WetnessBuffer, tmpBuffer.rt);
-            RT = tmpBuffer.rt;
+            CustomPassUtils.Copy(ctx, tmpNormalBuffer, ctx.cameraNormalBuffer);
+
+            //CoreUtils.DrawFullScreen(ctx.cmd, wetnessMaterial, shaderPassId: 0, properties: props);
+            //ctx.cmd.SetGlobalTexture(ShaderID._WetnessBuffer, tmpBuffer.rt);
+            //RT = tmpBuffer.rt;
         }
 
         protected override void Cleanup()
