@@ -228,12 +228,27 @@ public class VFXDecalTest : CustomPass
             return forwardShaderTags;
     }
 
+    void SyncRenderTextureAspect(RenderTexture rt, Camera camera)
+    {
+        float aspect = rt.width / (float)rt.height;
+
+        if (!Mathf.Approximately(aspect, camera.aspect))
+        {
+            rt.Release();
+            rt.width = camera.pixelWidth;
+            rt.height = camera.pixelHeight;
+            rt.Create();
+        }
+    }
+
     /// <summary>
     /// Execute the DrawRenderers with parameters setup from the editor
     /// </summary>
     /// <param name="ctx">The context of the custom pass. Contains command buffer, render context, buffer, etc.</param>
     protected override void Execute(CustomPassContext ctx)
     {
+
+        SyncRenderTextureAspect(RT, ctx.hdCamera.camera);
 
         CoreUtils.SetRenderTarget(ctx.cmd, Rthandle, clearFlag : ClearFlag.Color, Color.black);
 
@@ -301,7 +316,7 @@ public class VFXDecalTest : CustomPass
 
         var sceneViewrendererList = renderCtx.CreateRendererList(sceneViewresult);
 
-        bool opaque = renderQueueType == RenderQueueType.AllOpaque || renderQueueType == RenderQueueType.OpaqueAlphaTest || renderQueueType == RenderQueueType.OpaqueNoAlphaTest;
+       bool opaque = renderQueueType == RenderQueueType.AllOpaque || renderQueueType == RenderQueueType.OpaqueAlphaTest || renderQueueType == RenderQueueType.OpaqueNoAlphaTest;
         RenderForwardRendererList(ctx.hdCamera.frameSettings, rendererList, opaque, ctx.renderContext, ctx.cmd);
 
         if (ctx.hdCamera.camera.cameraType == CameraType.SceneView)
@@ -309,6 +324,8 @@ public class VFXDecalTest : CustomPass
             CoreUtils.SetRenderTarget(ctx.cmd, ctx.cameraColorBuffer);
             RenderForwardRendererList(ctx.hdCamera.frameSettings, sceneViewrendererList, opaque, ctx.renderContext, ctx.cmd);
         }
+
+        Shader.SetGlobalTexture("_DecalMask", RT);
     }
 
     protected override void Cleanup()

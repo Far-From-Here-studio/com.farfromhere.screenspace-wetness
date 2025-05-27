@@ -15,7 +15,7 @@ namespace FFH.HDRP.Rendering
         [Space]
         [Range(0f, 1f)]
         public float Wetness;
-        [Range(0f, 20f)]
+        [Range(0f, 100f)]
         public float RainDropStrenght;
         [Range(0f, 5f)]
         public float DetailsDistance;
