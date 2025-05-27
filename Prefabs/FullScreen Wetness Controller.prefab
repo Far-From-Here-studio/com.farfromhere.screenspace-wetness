@@ -1,5 +1,98 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2698050484414900864
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2550020442574578959}
+  - component: {fileID: 6291433242135856048}
+  m_Layer: 0
+  m_Name: DecalPass
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2550020442574578959
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2698050484414900864}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -1.3451458, y: -0.39232528, z: 1.5148091}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8523360141074904960}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6291433242135856048
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2698050484414900864}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26d6499a6bd256e47b859377446493a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IsGlobal: 1
+  fadeRadius: 0
+  priority: 10
+  customPasses:
+  - rid: 3927162586788528192
+  injectionPoint: 2
+  m_TargetCamera: {fileID: 0}
+  useTargetCamera: 0
+  references:
+    version: 2
+    RefIds:
+    - rid: 3927162586788528192
+      type: {class: VFXDecalTest, ns: , asm: FFH.HDRP.Rendering}
+      data:
+        m_Name: Custom Pass
+        enabled: 1
+        targetColorBuffer: 0
+        targetDepthBuffer: 0
+        clearFlags: 0
+        passFoldout: 0
+        m_Version: 0
+        RT: {fileID: 8400000, guid: 1f4c9c3cdb530804baa2de5f18974853, type: 2}
+        filterFoldout: 0
+        rendererFoldout: 0
+        renderQueueType: 7
+        layerMask:
+          serializedVersion: 2
+          m_Bits: 33554432
+        sortingCriteria: 51
+        overrideMode: 1
+        overrideMaterial: {fileID: 0}
+        overrideMaterialPassIndex: 0
+        overrideMaterialPassName: Forward
+        overrideShader: {fileID: 0}
+        overrideShaderPassIndex: 0
+        overrideShaderPassName: Forward
+        overrideDepthState: 0
+        depthCompareFunction: 4
+        depthWrite: 0
+        overrideStencil: 0
+        stencilReferenceValue: 64
+        stencilWriteMask: 192
+        stencilReadMask: 192
+        stencilCompareFunction: 8
+        stencilPassOperation: 0
+        stencilFailOperation: 0
+        stencilDepthFailOperation: 0
+        shaderPass: 0
+        variableRateShading: 0
 --- !u!1 &6224965368882231088
 GameObject:
   m_ObjectHideFlags: 0
@@ -36,6 +129,7 @@ Transform:
   - {fileID: 8344073072691478643}
   - {fileID: 3948040109999911104}
   - {fileID: 9028953328047736160}
+  - {fileID: 2550020442574578959}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8201691474551904008
@@ -53,17 +147,17 @@ MonoBehaviour:
   FullScreenWetness: {fileID: 2100000, guid: 82814c390a6fc424da2eab09aca3daa4, type: 2}
   RainOnCamera: {fileID: 2100000, guid: 1f37c0f63d599114c8408e51b4406163, type: 2}
   Wetness: 1
-  RainDropStrenght: 20
-  DetailsDistance: 0.93
+  RainDropStrenght: 100
+  DetailsDistance: 2.96
   ScreenEffectWetness: 1
   RainDropCustomRenderTexture: {fileID: 2100000, guid: abcd39fb6e6ccb1468b3a547f1877752, type: 2}
-  RainAmount: 0.0077
-  DropSize: 0.275
-  FadeValue: 0.9044
+  RainAmount: 0.0012
+  DropSize: 0.346
+  FadeValue: 0.9028
   RainGlideCustomRenderTexture: {fileID: 2100000, guid: 0a21689dc4b4b0848ac7a77509a4e72d, type: 2}
-  DropletsIntensity: 0.04
-  DropletsSize: 11.4
-  GravityForce: 1.701
+  DropletsIntensity: 0.7
+  DropletsSize: 21.5
+  GravityForce: 0.44
   DebugVertexColor: 0
   DebugVertexColorPass: {fileID: 4157995834179011657}
   DebugRoughness: 0
@@ -78,6 +172,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 8523360141074904960}
     m_Modifications:
+    - target: {fileID: 653883826256822644, guid: 0cb3bb4030413874fb126465393563d0, type: 3}
+      propertyPath: priority
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 653883826256822644, guid: 0cb3bb4030413874fb126465393563d0, type: 3}
       propertyPath: 'customPasses.Array.data[0]'
       value: 7875933048008343553
@@ -255,6 +353,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 8523360141074904960}
     m_Modifications:
+    - target: {fileID: 7454394062784440982, guid: 8a5a11948e9d3b243855f39f629fba4e, type: 3}
+      propertyPath: priority
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 7454394062784440983, guid: 8a5a11948e9d3b243855f39f629fba4e, type: 3}
       propertyPath: m_Name
       value: RainOnCameraEffect Pass
@@ -521,6 +623,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6169587514070038398, guid: dcb542b4f90cd904384b3d59de05dfa6, type: 3}
       propertyPath: managedReferences[7875933049974161599].overrideDepthState
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6169587514070038398, guid: dcb542b4f90cd904384b3d59de05dfa6, type: 3}
+      propertyPath: managedReferences[7875933049974161599].variableRateShading
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6169587514070038398, guid: dcb542b4f90cd904384b3d59de05dfa6, type: 3}

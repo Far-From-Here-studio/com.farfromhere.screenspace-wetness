@@ -45,10 +45,11 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Droplets_Intensity: 0.04
-    - _Droplets_Size: 11.4
-    - _Fading: 0.011
-    - _Gravity_Force: 1.701
+    - _Droplets_Intensity: 0.7
+    - _Droplets_Size: 21.5
+    - _Fading: 0.0025
+    - _Gravity_Force: 0.44
+    - _Tilling: 0.12
     m_Colors: []
   m_BuildTextureStacks: []
   m_AllowLocking: 1
