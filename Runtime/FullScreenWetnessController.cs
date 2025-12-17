@@ -15,13 +15,15 @@ namespace FFH.HDRP.Rendering
         [Space]
         [Range(0f, 1f)]
         public float Wetness;
-        [Range(0f, 100f)]
+        [Range(0f, 2f)]
         public float RainDropStrenght;
         [Range(0f, 5f)]
         public float DetailsDistance;
         [Range(0f, 1f)]
         public float ScreenEffectWetness;
         [Space]
+
+        public RenderingLayerMask _renderingLayerMask;
 
         [Header("RainDrop Custom RenderTexture Materials")]
         [Space]
@@ -76,6 +78,9 @@ namespace FFH.HDRP.Rendering
                 FullScreenWetness.SetFloat("_DropletStrenght", RainDropStrenght * (1 - snow));
                 Shader.SetGlobalFloat("_RainDrops", RainDropStrenght * (1 - snow));
                 FullScreenWetness.SetFloat("_DistanceView", DetailsDistance);
+
+                uint wanted = _renderingLayerMask.value;
+                FullScreenWetness.SetFloat("_LayerIndex",(float)_renderingLayerMask.value);
             }
             if (RainOnCamera)
             {

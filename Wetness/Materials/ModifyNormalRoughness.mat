@@ -11,7 +11,8 @@ Material:
   m_Shader: {fileID: -6465566751694194690, guid: 703e2e2d0edf5c346b85c77f5a09e966, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
-  m_ValidKeywords: []
+  m_ValidKeywords:
+  - _USE_RENDERLAYER_MASK_ON
   m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -24,7 +25,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _Droplets:
-        m_Texture: {fileID: 8600000, guid: 9c1cca59737f4534ea675a56e4b3fcbe, type: 2}
+        m_Texture: {fileID: 8600000, guid: 08fd064f5c21f2743b94e0d7eebae6dc, type: 2}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NormalMap:
@@ -36,7 +37,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _RainDropGliding:
-        m_Texture: {fileID: 8600000, guid: 02c1eb9b1ea4e8847a46ac799aafee34, type: 2}
+        m_Texture: {fileID: 8600000, guid: 53b3314d66c2c3f4da623da69d0e951c, type: 2}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _RainDroplets:
@@ -44,7 +45,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _VFXBuffer:
-        m_Texture: {fileID: 8600000, guid: 53b3314d66c2c3f4da623da69d0e951c, type: 2}
+        m_Texture: {fileID: 8400000, guid: f399c11b51415f04281b991c85aa49ff, type: 2}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
@@ -61,38 +62,42 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Base: 0
-    - _DistanceView: 2.96
+    - _Base: 1.09
+    - _DistanceView: 3.8
     - _Drop2Strenght: 0
-    - _DropletStrenght: 100
-    - _Droplet_Tiling: 1
+    - _DropletStrenght: 0.84
+    - _Droplet_Tiling: 0.25
     - _FadeEnd: 15
     - _FadeStart: 1
-    - _Float: 1
+    - _Float: 0.15
     - _Float_1: 0.75
-    - _Force: 1.07
+    - _Force: 1.44
     - _Fullscreen_DepthWrite: 0
+    - _LayerIndex: 5
     - _MaxMipBias: 4
     - _NormalStrength: 1.74
-    - _Normal_Strength: 0
-    - _PerceptualRoughnessIntensity: 8
-    - _PerturbationTiling: 18.36
-    - _RainGlideStrenght: -0.14
-    - _RainGlideTiling: 1
+    - _Normal_Strength: 0.15
+    - _PerceptualRoughnessIntensity: 1.1
+    - _PerturbationTiling: 24
+    - _RainGlideStrenght: -0.24
+    - _RainGlideTiling: 1.85
     - _Rot: 0.46
-    - _ScrollSpeed: 0.13
+    - _ScrollSpeed: -0.1
     - _Tiling: 1
-    - _UpMaskBlend: -0.8
-    - _UpMaskBlendSmoothness: -0.28
-    - _UpMaskFeather: 0.54
-    - _UpMaskFeatherSmoothness: 3.46
-    - _VFXDropsTiling: 1
+    - _USE_RENDERLAYER_MASK: 0
+    - _UpMaskBlend: -0.26
+    - _UpMaskBlendSmoothness: -0.69
+    - _UpMaskFeather: 1.1
+    - _UpMaskFeatherSmoothness: 1.17
+    - _VFXDropsTiling: 1.5
     - _VFXNormalForce: 0.02
     - _WaterSmoothness: 1
     - _Zpos: 2
     m_Colors:
     - _DistanceViewDroplet: {r: 0, g: 0.035, b: 0, a: 0}
-    - _PertubationMinMax: {r: 0.98, g: 1.02, b: 0, a: 0}
-    - _RemapDropRoughness: {r: 0, g: 1, b: 1.28, a: 0}
+    - _PertubationMinMax: {r: 0.98, g: 1.1, b: 0, a: 0}
+    - _RemapDropRoughness: {r: 0, g: 1, b: 0, a: 1}
+    - _Vector2: {r: -0.47, g: -10.36, b: 0, a: 0}
+    - _Vector4: {r: 1, g: 0, b: 1.5, a: 1.49}
   m_BuildTextureStacks: []
   m_AllowLocking: 1

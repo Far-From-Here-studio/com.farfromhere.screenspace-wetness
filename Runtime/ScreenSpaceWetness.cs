@@ -22,7 +22,7 @@ namespace FFH.HDRP.Rendering
         public Material wetnessMaterial;
         RTHandle tmpBuffer;
         MaterialPropertyBlock props;
-        public RenderTexture RT;
+
         RTHandle tmpNormalBuffer;
         static class ShaderID
         {

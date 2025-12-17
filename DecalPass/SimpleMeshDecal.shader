@@ -6,16 +6,18 @@ Shader "Custom/HDRP/SimpleMeshDecal"
         [HDR]_Color ("Color", Color) = (1,1,1,1)
         [Toggle(USE_WORLD_SPACE)] _UseWorldSpace("Use World Space", Float) = 0
         _ClipThreshold("Surface Clip Threshold", Range(-0.1, 0.1)) = -0.01
-        _ProjectionScale("Projection Scale", Vector) = (1,1,1)
+        _LayerIndex("Rendering Layer Mask", float) = 0
     }
 
     SubShader
     {
         Tags { 
-            "RenderType" = "Transparent"
-            "Queue" = "Transparent"
+            "RenderType" = "Opaque"
+            "Queue" = "Geometry"
             "RenderPipeline" = "HDRenderPipeline"
         }
+
+
 
         Pass
         {
@@ -63,8 +65,30 @@ Shader "Custom/HDRP/SimpleMeshDecal"
                 float4 _MainTex_ST;
                 float4 _Color;
                 float _ClipThreshold;
-                float3 _ProjectionScale;
+                float _LayerIndex;
             CBUFFER_END
+
+
+float DecalLayerMask(float RenderingLayerSample, float DecalLayerMask)
+{
+    // Sur la plupart des versions HDRP récentes, le mask est lisible dans .x.
+    // Si votre node renvoie un float au lieu d’un float4, branchez-le sur .x côté graphe.
+    uint sampled = (uint) round(RenderingLayerSample);
+    uint wanted = (uint) round(DecalLayerMask);
+
+    // 1.0 si au moins un bit correspond, sinon 0.0
+    return ((sampled & wanted) != 0u) ? 1.0 : 0.0;
+}
+
+float1 Unity_HDRP_SampleBuffer_RenderingLayerMask_float(float2 uv, int layerID)
+{
+uint2 pixelCoords = uint2(uv * _ScreenSize.xy);
+return _EnableRenderingLayers ? UnpackMeshRenderingLayerMask(LOAD_TEXTURE2D_X_LOD(_RenderingLayerMaskTexture, pixelCoords, 0)) : 0;
+}
+
+            
+
+
 
             Varyings vert(Attributes input)
             {
@@ -73,7 +97,6 @@ Shader "Custom/HDRP/SimpleMeshDecal"
                 // Transform positions
                 output.positionWS = TransformObjectToWorld(input.positionOS.xyz);
                 output.positionCS = TransformWorldToHClip(output.positionWS);
-                //output.normalWS = TransformObjectToWorldNormal(input.normalOS);
                 output.ray = GetAbsolutePositionWS(output.positionWS) - _WorldSpaceCameraPos;
                 // Calculate projection UVs
                 output.projUV = GetAbsolutePositionWS(output.positionWS);
@@ -92,22 +115,15 @@ Shader "Custom/HDRP/SimpleMeshDecal"
                 float2 positionNDC = (posCS.xy / input.positionCS.w); // from -1 to 1
                 
                 float3 worldRay = normalize(input.ray);
-                worldRay /= dot(worldRay, -UNITY_MATRIX_V[2].xyz);
-
-                
+                worldRay /= dot(worldRay, -UNITY_MATRIX_V[2].xyz);            
                 float rawSceneDepth = LOAD_TEXTURE2D_X(_CameraDepthTexture, input.positionCS.xy).r;
                 float linearSceneDepth = ComputeViewSpacePosition(positionNDC, rawSceneDepth, UNITY_MATRIX_I_P).z;
-                // Sample scene depth
-                //float linearFragDepth = LinearEyeDepth(input.positionWS, UNITY_MATRIX_I_P);
-                //float fragmentDepth = input.positionCS.w;
-                //float depth = Linear01Depth(rawSceneDepth,_ZBufferParams.xyzw );
-
                 float3 worldPos =  worldRay * linearSceneDepth; // * linearSceneDepth;
                 float3 localPos = TransformWorldToObject(worldPos).xyz;
 
                 clip(0.5 + _ClipThreshold - abs(localPos));
-                
-                   // Sample texture using either world space or mesh UVs
+              
+                // Sample texture using either world space or mesh UVs
                 float4 color;
                 #if USE_WORLD_SPACE
                     float2 worldUV = input.positionWS.xz * _MainTex_ST.xy + _MainTex_ST.zw;
@@ -117,44 +133,8 @@ Shader "Custom/HDRP/SimpleMeshDecal"
                 #endif
                 
                 color *= _Color; 
-
+                color.a = DecalLayerMask(_LayerIndex, Unity_HDRP_SampleBuffer_RenderingLayerMask_float(screenUV,0)) * color.a;
                 return color.rgba;
-
-                // Calculate depth difference
-                //float depthDiff = abs( input.depth - linearSceneDepth );
-                //clip(depthDiff + _ClipThreshold);
-                               
-                //if (input.depth + _ClipThreshold < linearSceneDepth )
-                // discard;
-               
-                // Clip fragments that are too far from surfaces
-
-                
-               /*
-                // Calculate UV coordinates based on position
-                float2 projUV = input.projUV.xy / input.projUV.w;
-                projUV = projUV * 0.5 + 0.5;
-                
-          
-                
-                // Fade based on depth difference for smoother edges
-                float fade = 1 - (depthDiff / _ClipThreshold);
-                color.a *= saturate(fade);                
-                //return color;
-                */
-                
-                /*
-                float4x4 worldToObject = RevertCameraTranslationFromInverseMatrix(UNITY_MATRIX_I_M);
-                float3 localPos = mul((float3x3)worldToObject, input.projUV.rgb);
-                float3 uvw = localPos / _ProjectionScale;
-
-           
-                if (any(abs(uvw) > 0.5))
-                    discard;
-                         */
-                         
-
-            
             }
             ENDHLSL
         }
@@ -196,6 +176,26 @@ Shader "Custom/HDRP/SimpleMeshDecal"
 
             };
 
+            
+float DecalLayerMask(float RenderingLayerSample, float DecalLayerMask)
+{
+    // Sur la plupart des versions HDRP récentes, le mask est lisible dans .x.
+    // Si votre node renvoie un float au lieu d’un float4, branchez-le sur .x côté graphe.
+    uint sampled = (uint) round(RenderingLayerSample);
+    uint wanted = (uint) round(DecalLayerMask);
+
+    // 1.0 si au moins un bit correspond, sinon 0.0
+    return ((sampled & wanted) != 0u) ? 1.0 : 0.0;
+}
+
+float1 Unity_HDRP_SampleBuffer_RenderingLayerMask_float(float2 uv, int layerID)
+{
+uint2 pixelCoords = uint2(uv * _ScreenSize.xy);
+return _EnableRenderingLayers ? UnpackMeshRenderingLayerMask(LOAD_TEXTURE2D_X_LOD(_RenderingLayerMaskTexture, pixelCoords, 0)) : 0;
+}
+
+
+
             TEXTURE2D(_MainTex);
             SAMPLER(sampler_MainTex);
             //TEXTURE2D_X_FLOAT(_CameraDepthTexture);
@@ -204,7 +204,7 @@ Shader "Custom/HDRP/SimpleMeshDecal"
                 float4 _MainTex_ST;
                 float4 _Color;
                 float _ClipThreshold;
-                float3 _ProjectionScale;
+                float _LayerIndex;
             CBUFFER_END
 
             Varyings vert(Attributes input)
@@ -258,43 +258,8 @@ Shader "Custom/HDRP/SimpleMeshDecal"
                 #endif
                 
                 color *= _Color; 
-
+                color.a = DecalLayerMask(_LayerIndex, Unity_HDRP_SampleBuffer_RenderingLayerMask_float(screenUV,0)) * color.a;
                 return color.rgba;
-
-                // Calculate depth difference
-                //float depthDiff = abs( input.depth - linearSceneDepth );
-                //clip(depthDiff + _ClipThreshold);
-                               
-                //if (input.depth + _ClipThreshold < linearSceneDepth )
-                // discard;
-               
-                // Clip fragments that are too far from surfaces
-
-                
-               /*
-                // Calculate UV coordinates based on position
-                float2 projUV = input.projUV.xy / input.projUV.w;
-                projUV = projUV * 0.5 + 0.5;
-                
-          
-                
-                // Fade based on depth difference for smoother edges
-                float fade = 1 - (depthDiff / _ClipThreshold);
-                color.a *= saturate(fade);                
-                //return color;
-                */
-                
-                /*
-                float4x4 worldToObject = RevertCameraTranslationFromInverseMatrix(UNITY_MATRIX_I_M);
-                float3 localPos = mul((float3x3)worldToObject, input.projUV.rgb);
-                float3 uvw = localPos / _ProjectionScale;
-
-           
-                if (any(abs(uvw) > 0.5))
-                    discard;
-                         */
-                         
-
             
             }
             ENDHLSL

@@ -61,7 +61,7 @@ namespace FFH.HDRP.Rendering
             //ctx.cmd.CopyTexture(ctx.cameraDepthBuffer, tmpDecalBuffer);
 
             //CoreUtils.SetRenderTarget(ctx.cmd, tmpDecalBuffer);
-            ctx.cmd.ClearRenderTarget(false, true, Color.black);
+            ctx.cmd.ClearRenderTarget(false, false, Color.black);
 
             PerObjectData renderConfig = HDUtils.GetRendererConfiguration(false, false);
 
@@ -83,7 +83,7 @@ namespace FFH.HDRP.Rendering
             };
             var rendererList = ctx.renderContext.CreateRendererList(result);
 
-            CoreUtils.DrawRendererList(ctx.renderContext, ctx.cmd, rendererList);
+            CoreUtils.DrawRendererList(ctx.cmd, rendererList);
 
         }
         protected override void Cleanup()

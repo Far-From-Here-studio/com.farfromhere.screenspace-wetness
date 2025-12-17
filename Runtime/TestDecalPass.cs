@@ -152,7 +152,7 @@ public class VFXDecalTest : CustomPass
     /// <summary>
     /// True if you want your custom pass to enable and set variable rate shading (VRS) texture. False for regular passes.
     /// </summary>
-    protected override bool enableVariableRateShading => variableRateShading;
+    //protected override bool enableVariableRateShading => variableRateShading;
 
     int fadeValueId;
 
@@ -360,7 +360,7 @@ public class VFXDecalTest : CustomPass
         if (!frameSettings.IsEnabled(FrameSettingsField.OpaqueObjects))
             return;
 
-        CoreUtils.DrawRendererList(renderContext, cmd, rendererList);
+        CoreUtils.DrawRendererList(cmd, rendererList);
     }
 
     static void DrawTransparentRendererList(in ScriptableRenderContext renderContext, CommandBuffer cmd, in FrameSettings frameSettings, RendererList rendererList)
@@ -368,7 +368,7 @@ public class VFXDecalTest : CustomPass
         if (!frameSettings.IsEnabled(FrameSettingsField.TransparentObjects))
             return;
 
-        CoreUtils.DrawRendererList(renderContext, cmd, rendererList);
+        CoreUtils.DrawRendererList(cmd, rendererList);
     }
     /// <summary>
     /// List all the materials that need to be displayed at the bottom of the component.

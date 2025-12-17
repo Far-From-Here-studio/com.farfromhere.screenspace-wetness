@@ -23,16 +23,23 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
-    - _MainTex:
+    - _DecalTexture:
         m_Texture: {fileID: 2800000, guid: 8893bbcd701579145a29df9e6df24342, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 2800000, guid: 8893bbcd701579145a29df9e6df24342, type: 3}
+        m_Scale: {x: 2, y: 2}
+        m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _ClipThreshold: -0.0018
+    - _ClipThreshold: -0.09
+    - _LayerIndex: 4
     - _UseWorldSpace: 0
     m_Colors:
-    - _Color: {r: 2.608238, g: 2.608238, b: 2.608238, a: 1}
+    - _Color: {r: 1.4980391, g: 1.4980391, b: 1.4980391, a: 1}
+    - _DecalColor: {r: 1, g: 1, b: 1, a: 1}
+    - _DecalScale: {r: 1, g: 1, b: 1, a: 1}
     - _ProjectionScale: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
