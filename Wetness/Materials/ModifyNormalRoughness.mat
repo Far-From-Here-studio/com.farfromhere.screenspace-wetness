@@ -13,11 +13,13 @@ Material:
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
   - _USE_RENDERLAYER_MASK_ON
-  m_InvalidKeywords: []
+  m_InvalidKeywords:
+  - _ALPHATEST_ON
+  - _DISABLE_SSR_TRANSPARENT
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
+  m_CustomRenderQueue: 2475
   stringTagMap: {}
   disabledShaderPasses: []
   m_LockedProperties: 
@@ -62,42 +64,53 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Base: 1.09
+    - _Base: -0.65
+    - _CellDensity: 9.51
     - _DistanceView: 3.8
     - _Drop2Strenght: 0
-    - _DropletStrenght: 0.84
+    - _DropletStrenght: 0.2
     - _Droplet_Tiling: 0.25
+    - _Edge: 0.52
+    - _Edge2: 0.5
     - _FadeEnd: 15
     - _FadeStart: 1
-    - _Float: 0.15
+    - _Float: 1
     - _Float_1: 0.75
-    - _Force: 1.44
+    - _Force: 0.48
     - _Fullscreen_DepthWrite: 0
     - _LayerIndex: 5
     - _MaxMipBias: 4
+    - _NormalIntensity: -0.13
     - _NormalStrength: 1.74
-    - _Normal_Strength: 0.15
-    - _PerceptualRoughnessIntensity: 1.1
-    - _PerturbationTiling: 24
-    - _RainGlideStrenght: -0.24
-    - _RainGlideTiling: 1.85
+    - _Normal_Strength: -0.16
+    - _Normal_intensity: 0.88
+    - _Offset: 0.58
+    - _OffsetNormalUpMask: 0.34
+    - _OffsetSmoothnessMask: 0
+    - _PerceptualRoughnessIntensity: 1.32
+    - _PerturbationTiling: 10.27
+    - _RainGlideStrenght: 4.28
+    - _RainGlideTiling: 0.65
     - _Rot: 0.46
     - _ScrollSpeed: -0.1
+    - _SmoothnessBase: 0.3
+    - _SmoothnessForce: 0.51
     - _Tiling: 1
     - _USE_RENDERLAYER_MASK: 0
-    - _UpMaskBlend: -0.26
-    - _UpMaskBlendSmoothness: -0.69
-    - _UpMaskFeather: 1.1
-    - _UpMaskFeatherSmoothness: 1.17
-    - _VFXDropsTiling: 1.5
+    - _UpMaskBlend: -0.91
+    - _UpMaskBlendSmoothness: 0
+    - _UpMaskFeather: 2.62
+    - _UpMaskFeatherSmoothness: 1
+    - _VFXDropsTiling: 1.49
     - _VFXNormalForce: 0.02
     - _WaterSmoothness: 1
     - _Zpos: 2
     m_Colors:
     - _DistanceViewDroplet: {r: 0, g: 0.035, b: 0, a: 0}
-    - _PertubationMinMax: {r: 0.98, g: 1.1, b: 0, a: 0}
-    - _RemapDropRoughness: {r: 0, g: 1, b: 0, a: 1}
-    - _Vector2: {r: -0.47, g: -10.36, b: 0, a: 0}
-    - _Vector4: {r: 1, g: 0, b: 1.5, a: 1.49}
+    - _PertubationMinMax: {r: 0.99, g: 1.1, b: 0, a: 0}
+    - _Remap: {r: -0.75, g: 0.63, b: 0, a: 0}
+    - _RemapDropRoughness: {r: -1, g: 2, b: 0, a: 1}
+    - _Vector2: {r: -0.77, g: 0.88, b: 0, a: 0}
+    - _Vector4: {r: 1, g: 0, b: 0, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1

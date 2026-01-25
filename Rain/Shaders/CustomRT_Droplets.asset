@@ -43,7 +43,7 @@ CustomRenderTexture:
   m_InitColor: {r: 0, g: 0, b: 0, a: 1}
   m_InitTexture: {fileID: 0}
   m_UpdateMode: 1
-  m_InitializationMode: 1
+  m_InitializationMode: 0
   m_UpdateZoneSpace: 0
   m_CurrentUpdateZoneSpace: 0
   m_UpdateZones:
@@ -52,7 +52,7 @@ CustomRenderTexture:
     rotation: 0
     passIndex: -1
     needSwap: 1
-  m_UpdatePeriod: 0
+  m_UpdatePeriod: 0.016
   m_ShaderPass: 0
   m_CubemapFaceMask: 4294967295
   m_DoubleBuffered: 1

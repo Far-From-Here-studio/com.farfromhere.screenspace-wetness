@@ -33,11 +33,11 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _ClipThreshold: -0.09
+    - _ClipThreshold: -0.005
     - _LayerIndex: 4
     - _UseWorldSpace: 0
     m_Colors:
-    - _Color: {r: 1.4980391, g: 1.4980391, b: 1.4980391, a: 1}
+    - _Color: {r: 0.3584906, g: 0.3584906, b: 0.3584906, a: 1}
     - _DecalColor: {r: 1, g: 1, b: 1, a: 1}
     - _DecalScale: {r: 1, g: 1, b: 1, a: 1}
     - _ProjectionScale: {r: 1, g: 1, b: 1, a: 1}

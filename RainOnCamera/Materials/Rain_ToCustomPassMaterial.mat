@@ -59,17 +59,17 @@ Material:
     m_Ints: []
     m_Floats:
     - _ADD_CLOUDY_NOISE: 1
-    - _Clearing_Fade: 0.597
-    - _Clearing_Fade_1: 0.333
-    - _Clearing_Size: 0.535
-    - _Clearing_Size_1: 0.251
+    - _Clearing_Fade: 0.188
+    - _Clearing_Fade_1: 0.493
+    - _Clearing_Size: 0.587
+    - _Clearing_Size_1: 0.123
     - _DropletBrightness: 0
     - _DropletInfluence: 0.193
     - _Droplets_Blur: 0.21
     - _FogInfluenceOnDrops: 1
-    - _Fog_Blur: 0.025
-    - _Fog_Opacity: 0.535
-    - _Fog_Spread: 1
+    - _Fog_Blur: 3
+    - _Fog_Opacity: 0.903
+    - _Fog_Spread: 0.852
     - _Fog_Tiling: 0.35
     - _Fullscreen_DepthWrite: 0
     - _Influence: 1
@@ -78,7 +78,7 @@ Material:
     - _Noise_Animation: 0.05
     - _Noise_Scale: 25
     - _Normal_Strength: 0.5
-    - _Opacity: 0.671
+    - _Opacity: 0.833
     - _RainGlideUVNoiseForce: 0.0136
     - _Refraction_Strength: 50
     - _Tiling: 1
