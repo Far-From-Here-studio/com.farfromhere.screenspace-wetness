@@ -49,7 +49,7 @@ MonoBehaviour:
   priority: 10
   customPasses:
   - rid: 3927162586788528192
-  injectionPoint: 2
+  injectionPoint: 6
   m_TargetCamera: {fileID: 0}
   useTargetCamera: 0
   references:
@@ -60,19 +60,19 @@ MonoBehaviour:
       data:
         m_Name: Custom Pass
         enabled: 1
-        targetColorBuffer: 0
-        targetDepthBuffer: 0
+        targetColorBuffer: 2
+        targetDepthBuffer: 2
         clearFlags: 0
         passFoldout: 0
         m_Version: 0
         RT: {fileID: 8400000, guid: 1f4c9c3cdb530804baa2de5f18974853, type: 2}
         filterFoldout: 0
         rendererFoldout: 0
-        renderQueueType: 7
+        renderQueueType: 10
         layerMask:
           serializedVersion: 2
           m_Bits: 33554432
-        sortingCriteria: 51
+        sortingCriteria: -1
         overrideMode: 1
         overrideMaterial: {fileID: 0}
         overrideMaterialPassIndex: 0
@@ -81,8 +81,8 @@ MonoBehaviour:
         overrideShaderPassIndex: 0
         overrideShaderPassName: Forward
         overrideDepthState: 0
-        depthCompareFunction: 4
-        depthWrite: 0
+        depthCompareFunction: 8
+        depthWrite: 1
         overrideStencil: 0
         stencilReferenceValue: 64
         stencilWriteMask: 192
@@ -147,20 +147,20 @@ MonoBehaviour:
   FullScreenWetness: {fileID: 2100000, guid: 82814c390a6fc424da2eab09aca3daa4, type: 2}
   RainOnCamera: {fileID: 2100000, guid: 1f37c0f63d599114c8408e51b4406163, type: 2}
   Wetness: 1
-  RainDropStrenght: 0.31
+  RainDropStrenght: 0.2
   DetailsDistance: 3.8
   ScreenEffectWetness: 1
   _renderingLayerMask:
     serializedVersion: 0
     m_Bits: 5
   RainDropCustomRenderTexture: {fileID: 2100000, guid: abcd39fb6e6ccb1468b3a547f1877752, type: 2}
-  RainAmount: 0.0053
-  DropSize: 0.043
-  FadeValue: 0.9003
+  RainAmount: 0.0586
+  DropSize: 0.475
+  FadeValue: 0.9043
   RainGlideCustomRenderTexture: {fileID: 2100000, guid: f3a4ea657c0ecf642a90685132cc17f1, type: 2}
-  DropletsIntensity: 0.75
-  DropletsSize: 0.3
-  GravityForce: 1.66
+  DropletsIntensity: 3.73
+  DropletsSize: 2.8
+  GravityForce: 0.25
   DebugVertexColor: 0
   DebugVertexColorPass: {fileID: 4157995834179011657}
   DebugRoughness: 0
@@ -466,6 +466,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 8523360141074904960}
     m_Modifications:
+    - target: {fileID: 3285082703679738676, guid: 4a8c7fb4421abdf4ca333f404727929c, type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[1].m_Value
+      value: 0.22
+      objectReference: {fileID: 0}
+    - target: {fileID: 3285082703679738676, guid: 4a8c7fb4421abdf4ca333f404727929c, type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[2].m_Value
+      value: 0.58
+      objectReference: {fileID: 0}
     - target: {fileID: 4998724140117973647, guid: 4a8c7fb4421abdf4ca333f404727929c, type: 3}
       propertyPath: m_Name
       value: VFXCamera
